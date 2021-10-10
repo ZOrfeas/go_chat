@@ -101,6 +101,17 @@ func handleHostMessage(msg string) error {
 	return nil
 }
 
+func CliCallback(args []string) error {
+	if len(args) != 2 {
+		return fmt.Errorf("client needs exactly 2 arguments\n" +
+			"The connection string and a username")
+	}
+	fmt.Println("Starting client...")
+	Run(args[0], args[1])
+	return nil
+
+}
+
 func Run(connString, id string) {
 	client = &cliTy{}
 	id = strings.ReplaceAll(id, " ", "_")
