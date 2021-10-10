@@ -24,15 +24,7 @@ func main() {
 		return
 	}
 
-	clientCallback := func(args []string) error {
-		if len(args) != 2 {
-			return fmt.Errorf("client needs exactly 2 arguments\n" +
-				"The connection string and a username")
-		}
-		fmt.Println("Starting client with args: ", args)
-		client.Run(args[0], args[1])
-		return nil
-	}
+	clientCallback := client.EntryPoint
 	serverCallback := func(args []string) error {
 		fmt.Println("I am server, these are my args", args)
 		return nil
