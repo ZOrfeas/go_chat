@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/ZOrfeas/go_chat/cmd/client"
 	"github.com/ZOrfeas/go_chat/pkg/cli"
 )
 
@@ -24,7 +25,12 @@ func main() {
 	}
 
 	clientCallback := func(args []string) error {
-		fmt.Println("I am client, these are my args", args)
+		if len(args) != 2 {
+			return fmt.Errorf("client needs exactly 2 arguments\n" +
+				"The connection string and a username")
+		}
+		fmt.Println("Starting client with args: ", args)
+		client.Run(args[0], args[1])
 		return nil
 	}
 	serverCallback := func(args []string) error {
@@ -35,5 +41,8 @@ func main() {
 	parentCli.AddCommand("client", "chooses client functionality", clientCallback)
 	parentCli.AddCommand("server", "chooses server functionality", serverCallback)
 
-	parentCli.Run(os.Args[1:])
+	err := parentCli.Run(os.Args[1:], parentCli.Help)
+	if err != nil {
+		fmt.Println(err)
+	}
 }

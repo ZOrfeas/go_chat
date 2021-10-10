@@ -65,7 +65,7 @@ func (cli *Cli) Help(args []string) error {
 	return nil
 }
 
-func (cli *Cli) Run(args []string) error {
+func (cli *Cli) Run(args []string, dflt Callback) error {
 	atLeastOneRun := false
 	for i := 0; i < len(args); i += 1 {
 		if cli.exists(args[i]) {
@@ -86,7 +86,7 @@ func (cli *Cli) Run(args []string) error {
 		}
 	}
 	if !atLeastOneRun {
-		cli.Help([]string{})
+		dflt([]string{})
 	}
 	return nil
 }
