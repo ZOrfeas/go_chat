@@ -1,0 +1,4 @@
+github.com/ZOrfeas/go_chat/client v0.0.0-20211010182752-39f6e0fa33df h1:+3B0vBEhonERACA4JPwjvmriGUDWv63S7tZWe96/aQQ=
+github.com/ZOrfeas/go_chat/client v0.0.0-20211010182752-39f6e0fa33df/go.mod h1:G04FYWTnf7g/DYRm4xGqydjJ7BsM9gdfSu/nNJ5cSXk=
+github.com/ZOrfeas/go_chat/common v0.0.0-20211010182752-39f6e0fa33df h1:wL6p8C/Lc/QbyA06H5zMUWCIY8A8Lvn/mYJwFhV3Wn0=
+github.com/ZOrfeas/go_chat/common v0.0.0-20211010182752-39f6e0fa33df/go.mod h1:mXm5FIxFzjWURadc1bBfqr/2e1zgvOCTUmv+Kstpv9U=
