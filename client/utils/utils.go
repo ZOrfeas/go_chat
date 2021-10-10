@@ -101,7 +101,7 @@ func handleHostMessage(msg string) error {
 	return nil
 }
 
-func CliCallback(args []string) error {
+func EntryPoint(args []string) error {
 	if len(args) != 2 {
 		return fmt.Errorf("client needs exactly 2 arguments\n" +
 			"The connection string and a username")
