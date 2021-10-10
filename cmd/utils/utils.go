@@ -4,6 +4,25 @@ import (
 	"unicode"
 )
 
+type HostCommand int
+
+const (
+	Disconnect HostCommand = iota
+	ChangeName
+	SayName
+
+	HostCommandCount // the count of available host commands
+)
+
+func (hostCmd HostCommand) String() string {
+	if hostCmd > HostCommandCount || hostCmd < 0 {
+		return "Non-existent command ID"
+	}
+	return [HostCommandCount]string{
+		"Disconnect", "Change-Name", "Say-Name",
+	}[hostCmd]
+}
+
 const HostCommandIdentifier = "--COMMAND:"
 
 func RemoveSpace(s string) string {

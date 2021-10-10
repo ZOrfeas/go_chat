@@ -18,34 +18,35 @@ type cliTy struct {
 	Conn net.Conn
 }
 
-func (cl cliTy) sendBytes(b []byte) error {
+func (cl *cliTy) setName(newName string) {
+	if newName == "" {
+		fmt.Println("Empty name given")
+		return
+	}
+	cl.Id = newName
+}
+func (cl *cliTy) sendBytes(b []byte) error {
 	_, err := cl.Conn.Write(append(b, '\n'))
 	return err
 }
-func (cl cliTy) SendString(str string) error {
+func (cl *cliTy) SendString(str string) error {
 	return cl.sendBytes([]byte(str))
 }
-
-var commands []func(string)
-
-func (cl cliTy) InitHostCommands() {
-	exit := func(s string) {
-		fmt.Println("disconnect")
+func (cl *cliTy) ExeHostCommand(idx utils.HostCommand, arg string) {
+	fmt.Println("Server command:", idx.String(), "with arg", "'"+arg+"'")
+	switch idx {
+	case utils.Disconnect:
 		os.Exit(0)
+	case utils.ChangeName:
+		cl.setName(arg)
+	case utils.SayName:
+		cl.SendString(cl.Id)
+	default:
+		fmt.Println(idx.String(), " with arg ", arg, "\n", "Not yet implemented")
 	}
-	changeId := func(id string) {
-		fmt.Println("change username to " + id)
-		cl.Id = id
-	}
-	commands = []func(string){exit, changeId}
 }
 
-func (cl cliTy) ExeHostCommand(idx int, arg string) {
-	fmt.Print("Server command: ")
-	commands[idx](arg)
-}
-
-var client cliTy
+var client *cliTy
 
 func channelStrings(out chan<- string, in io.Reader) {
 	reader := bufio.NewReader(in)
@@ -88,7 +89,7 @@ func handleHostCommand(cmd string) error {
 	if err != nil {
 		return err
 	}
-	client.ExeHostCommand(idx, fields[1])
+	client.ExeHostCommand(utils.HostCommand(idx), fields[1])
 	return nil
 }
 func handleHostMessage(msg string) error {
@@ -101,6 +102,7 @@ func handleHostMessage(msg string) error {
 }
 
 func Run(connString, id string) {
+	client = &cliTy{}
 	id = strings.ReplaceAll(id, " ", "_")
 	client.Id = id
 
@@ -120,8 +122,6 @@ func Run(connString, id string) {
 	fmt.Println("Host accepted connection")
 	fmt.Println("Your username is: " + client.Id)
 	fmt.Println("Use '/help' to get a list of available commands")
-
-	client.InitHostCommands()
 
 	stdin := make(chan string, 1)
 	host := make(chan string, 1)
@@ -144,5 +144,4 @@ func Run(connString, id string) {
 			return
 		}
 	}
-
 }
