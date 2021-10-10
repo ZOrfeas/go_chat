@@ -1,4 +1,4 @@
-package client
+package utils
 
 import (
 	"bufio"
@@ -10,7 +10,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/ZOrfeas/go_chat/cmd/utils"
+	"github.com/ZOrfeas/go_chat/client_server/utils"
 )
 
 type cliTy struct {

@@ -15,7 +15,7 @@ const (
 )
 
 func (hostCmd HostCommand) String() string {
-	if hostCmd > HostCommandCount || hostCmd < 0 {
+	if hostCmd >= HostCommandCount || hostCmd < 0 {
 		return "Non-existent command ID"
 	}
 	return [HostCommandCount]string{
