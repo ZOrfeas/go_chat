@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/ZOrfeas/go_chat/cli"
 	client "github.com/ZOrfeas/go_chat/client/utils"
-	"github.com/ZOrfeas/go_chat/client_server/cli"
 )
 
 func main() {

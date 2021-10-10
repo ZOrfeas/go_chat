@@ -10,7 +10,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/ZOrfeas/go_chat/client_server/utils"
+	"github.com/ZOrfeas/go_chat/common/utils"
 )
 
 type cliTy struct {
