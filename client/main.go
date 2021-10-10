@@ -9,13 +9,14 @@ import (
 	"github.com/ZOrfeas/go_chat/client/utils"
 )
 
-//export RunClient
-func RunClient(args []string) {
-	if err := utils.EntryPoint(args); err != nil {
-		fmt.Println(err)
-	}
+// Can be used externally by dup-ing its stdin and stdout file descriptors
+// export RunClient
+func RunClient(connString, id string) {
+	utils.Run(connString, id)
 }
 
 func main() {
-	RunClient(os.Args[1:])
+	if err := utils.EntryPoint(os.Args[1:]); err != nil {
+		fmt.Println(err)
+	}
 }
