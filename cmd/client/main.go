@@ -14,9 +14,8 @@ import (
 )
 
 type cliTy struct {
-	Id       string
-	Conn     net.Conn
-	commands []func(string)
+	Id   string
+	Conn net.Conn
 }
 
 func (cl cliTy) sendBytes(b []byte) error {
@@ -27,21 +26,23 @@ func (cl cliTy) SendString(str string) error {
 	return cl.sendBytes([]byte(str))
 }
 
+var commands []func(string)
+
 func (cl cliTy) InitHostCommands() {
 	exit := func(s string) {
-		fmt.Println("client disconnect")
+		fmt.Println("disconnect")
 		os.Exit(0)
 	}
 	changeId := func(id string) {
-		fmt.Println("username change to" + id)
+		fmt.Println("change username to " + id)
 		cl.Id = id
 	}
-	cl.commands = []func(string){exit, changeId}
+	commands = []func(string){exit, changeId}
 }
 
 func (cl cliTy) ExeHostCommand(idx int, arg string) {
-	fmt.Print("Server requested ")
-	cl.commands[idx](arg)
+	fmt.Print("Server command: ")
+	commands[idx](arg)
 }
 
 var client cliTy
@@ -58,7 +59,7 @@ func channelStrings(out chan<- string, in io.Reader) {
 	}
 }
 
-func setupConnection() error {
+func initNameFromHost() error {
 	if err := client.SendString("/name " + client.Id); err != nil {
 		return err
 	}
@@ -95,7 +96,7 @@ func handleHostMessage(msg string) error {
 		msg = strings.TrimPrefix(msg, utils.HostCommandIdentifier)
 		return handleHostCommand(msg)
 	}
-	fmt.Println(msg)
+	fmt.Print(msg)
 	return nil
 }
 
@@ -112,7 +113,7 @@ func Run(connString, id string) {
 	client.Conn = c
 	fmt.Println("Network connection established")
 
-	if err := setupConnection(); err != nil {
+	if err := initNameFromHost(); err != nil {
 		fmt.Println(err)
 		return
 	}
