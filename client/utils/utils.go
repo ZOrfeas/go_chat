@@ -3,14 +3,13 @@ package utils
 import (
 	"bufio"
 	"fmt"
-	"io"
 	"net"
 	"os"
 	"strconv"
 	"strings"
 	"unicode"
 
-	"github.com/ZOrfeas/go_chat/common/utils"
+	common "github.com/ZOrfeas/go_chat/common/utils"
 )
 
 type CliTy struct {
@@ -32,14 +31,14 @@ func (cl *CliTy) sendBytes(b []byte) error {
 func (cl *CliTy) SendString(str string) error {
 	return cl.sendBytes([]byte(str))
 }
-func (cl *CliTy) ExeHostCommand(idx utils.HostCommand, arg string) {
+func (cl *CliTy) ExeHostCommand(idx common.HostCommand, arg string) {
 	fmt.Println("Server command:", idx.String(), "with arg", "'"+arg+"'")
 	switch idx {
-	case utils.Disconnect:
+	case common.Disconnect:
 		os.Exit(0)
-	case utils.ChangeName:
+	case common.ChangeName:
 		cl.setName(arg)
-	case utils.SayName:
+	case common.SayName:
 		cl.SendString(cl.Id)
 	default:
 		fmt.Println(idx.String(), " with arg ", arg, "\n", "Not yet implemented")
@@ -48,25 +47,13 @@ func (cl *CliTy) ExeHostCommand(idx utils.HostCommand, arg string) {
 
 var client *CliTy
 
-func ChannelStrings(out chan<- string, in io.Reader) {
-	reader := bufio.NewReader(in)
-	for {
-		message, err := reader.ReadString('\n')
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-		out <- message
-	}
-}
-
 func initNameFromHost() error {
 	if err := client.SendString("/name " + client.Id); err != nil {
 		return err
 	}
 	reader := bufio.NewReader(client.Conn)
 	hostResponse, err := reader.ReadString('\n')
-	client.Id = utils.RemoveSpace(hostResponse)
+	client.Id = common.RemoveSpace(hostResponse)
 	return err
 }
 
@@ -89,12 +76,12 @@ func handleHostCommand(cmd string) error {
 	if err != nil {
 		return err
 	}
-	client.ExeHostCommand(utils.HostCommand(idx), fields[1])
+	client.ExeHostCommand(common.HostCommand(idx), fields[1])
 	return nil
 }
 func handleHostMessage(msg string) error {
-	if strings.HasPrefix(msg, utils.HostCommandIdentifier) {
-		msg = strings.TrimPrefix(msg, utils.HostCommandIdentifier)
+	if strings.HasPrefix(msg, common.HostCommandIdentifier) {
+		msg = strings.TrimPrefix(msg, common.HostCommandIdentifier)
 		return handleHostCommand(msg)
 	}
 	fmt.Print(msg)
@@ -139,8 +126,8 @@ func Run(connString, id string) {
 	defer close(stdin)
 	defer close(host)
 
-	go ChannelStrings(stdin, os.Stdin)
-	go ChannelStrings(host, client.Conn)
+	go common.ChannelStrings(stdin, os.Stdin)
+	go common.ChannelStrings(host, client.Conn)
 
 	var exitStatus error
 	for {
