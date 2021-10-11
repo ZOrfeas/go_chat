@@ -1,6 +1,9 @@
 package utils
 
 import (
+	"bufio"
+	"fmt"
+	"io"
 	"unicode"
 )
 
@@ -24,6 +27,18 @@ func (hostCmd HostCommand) String() string {
 }
 
 const HostCommandIdentifier = "--COMMAND:"
+
+func ChannelStrings(out chan<- string, in io.Reader) {
+	reader := bufio.NewReader(in)
+	for {
+		message, err := reader.ReadString('\n')
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		out <- message
+	}
+}
 
 func RemoveSpace(s string) string {
 	rr := make([]rune, 0, len(s))
