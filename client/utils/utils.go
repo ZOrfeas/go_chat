@@ -13,26 +13,26 @@ import (
 	"github.com/ZOrfeas/go_chat/common/utils"
 )
 
-type cliTy struct {
+type CliTy struct {
 	Id   string
 	Conn net.Conn
 }
 
-func (cl *cliTy) setName(newName string) {
+func (cl *CliTy) setName(newName string) {
 	if newName == "" {
 		fmt.Println("Empty name given")
 		return
 	}
 	cl.Id = newName
 }
-func (cl *cliTy) sendBytes(b []byte) error {
+func (cl *CliTy) sendBytes(b []byte) error {
 	_, err := cl.Conn.Write(append(b, '\n'))
 	return err
 }
-func (cl *cliTy) SendString(str string) error {
+func (cl *CliTy) SendString(str string) error {
 	return cl.sendBytes([]byte(str))
 }
-func (cl *cliTy) ExeHostCommand(idx utils.HostCommand, arg string) {
+func (cl *CliTy) ExeHostCommand(idx utils.HostCommand, arg string) {
 	fmt.Println("Server command:", idx.String(), "with arg", "'"+arg+"'")
 	switch idx {
 	case utils.Disconnect:
@@ -46,9 +46,9 @@ func (cl *cliTy) ExeHostCommand(idx utils.HostCommand, arg string) {
 	}
 }
 
-var client *cliTy
+var client *CliTy
 
-func channelStrings(out chan<- string, in io.Reader) {
+func ChannelStrings(out chan<- string, in io.Reader) {
 	reader := bufio.NewReader(in)
 	for {
 		message, err := reader.ReadString('\n')
@@ -113,7 +113,7 @@ func EntryPoint(args []string) error {
 }
 
 func Run(connString, id string) {
-	client = &cliTy{}
+	client = &CliTy{}
 	id = strings.ReplaceAll(id, " ", "_")
 	client.Id = id
 
@@ -139,8 +139,8 @@ func Run(connString, id string) {
 	defer close(stdin)
 	defer close(host)
 
-	go channelStrings(stdin, os.Stdin)
-	go channelStrings(host, client.Conn)
+	go ChannelStrings(stdin, os.Stdin)
+	go ChannelStrings(host, client.Conn)
 
 	var exitStatus error
 	for {
