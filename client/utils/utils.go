@@ -47,8 +47,10 @@ func (cl *CliTy) ExeHostCommand(idx common.HostCommand, arg string) {
 
 var client *CliTy
 
+const FirstMessagePrefix = "/name "
+
 func initNameFromHost() error {
-	if err := client.SendString("/name " + client.Id); err != nil {
+	if err := client.SendString(FirstMessagePrefix + client.Id); err != nil {
 		return err
 	}
 	reader := bufio.NewReader(client.Conn)
