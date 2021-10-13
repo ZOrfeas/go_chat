@@ -31,7 +31,7 @@ func (cl *CliTy) sendBytes(b []byte) error {
 func (cl *CliTy) SendString(str string) error {
 	return cl.sendBytes([]byte(str))
 }
-func (cl *CliTy) ExeHostCommand(idx common.HostCommand, arg string) {
+func (cl *CliTy) exeHostCommand(idx common.HostCommand, arg string) {
 	fmt.Println("Server command:", idx.String(), "with arg", "'"+arg+"'")
 	switch idx {
 	case common.Disconnect:
@@ -78,7 +78,7 @@ func handleHostCommand(cmd string) error {
 	if err != nil {
 		return err
 	}
-	client.ExeHostCommand(common.HostCommand(idx), fields[1])
+	client.exeHostCommand(common.HostCommand(idx), fields[1])
 	return nil
 }
 func handleHostMessage(msg string) error {
