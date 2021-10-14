@@ -10,6 +10,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"unicode"
 
 	client "github.com/ZOrfeas/go_chat/client/utils"
 	common "github.com/ZOrfeas/go_chat/common/utils"
@@ -24,6 +25,7 @@ func (thisClient *clientWrapperTy) checkAndSend(rep string) error {
 	thisClient.mu.Lock()
 	defer thisClient.mu.Unlock()
 	rep = strings.ReplaceAll(rep, common.HostCommandIdentifier, "[redacted]")
+	rep = strings.TrimRightFunc(rep, unicode.IsSpace)
 	return thisClient.Client.SendString(rep)
 }
 

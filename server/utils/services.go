@@ -77,7 +77,6 @@ func msgProvider(thisClient *clientWrapperTy, rest string) error {
 	}
 	reply := thisClient.Client.Id + " whispers: " +
 		strings.TrimPrefix(rest, " "+receiverName+" ")
-	reply = strings.TrimSuffix(reply, "\n")
 	return receiver.checkAndSend(reply)
 }
 func helpProvider(thisClient *clientWrapperTy, rest string) error {
