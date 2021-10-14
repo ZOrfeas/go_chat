@@ -1,7 +1,11 @@
-github.com/ZOrfeas/go_chat/client v0.0.0-20211011185644-8d4e0765907a h1:PLPAT0A08B1ehagas7S1g9bjnuJhsiNLF+otrPEcQUQ=
-github.com/ZOrfeas/go_chat/client v0.0.0-20211011185644-8d4e0765907a/go.mod h1:Yh9m53/Qr1/FFaxxGuFSWVHMeorIpi93lL7N42aOStw=
-github.com/ZOrfeas/go_chat/client v0.0.0-20211012190342-0d0622121905 h1:QzfMJ5p+sDAQezzX8ZmFFhuPoeNusnxJaObXXdYCFaY=
-github.com/ZOrfeas/go_chat/client v0.0.0-20211012190342-0d0622121905/go.mod h1:Yh9m53/Qr1/FFaxxGuFSWVHMeorIpi93lL7N42aOStw=
+github.com/ZOrfeas/go_chat/client v0.0.0-20211013181730-995b539a1300 h1:ioQsorkzLw6M2ZGoxmEUJpknRG2bw3ycnx2aPC0G0B0=
+github.com/ZOrfeas/go_chat/client v0.0.0-20211013181730-995b539a1300/go.mod h1:Yh9m53/Qr1/FFaxxGuFSWVHMeorIpi93lL7N42aOStw=
 github.com/ZOrfeas/go_chat/common v0.0.0-20211011185529-23958db6d38f/go.mod h1:mXm5FIxFzjWURadc1bBfqr/2e1zgvOCTUmv+Kstpv9U=
-github.com/ZOrfeas/go_chat/common v0.0.0-20211011185644-8d4e0765907a h1:Nu0q1q99AmQkZtwSh8i7XwZlen1Ojs6/1szysU3XYV8=
-github.com/ZOrfeas/go_chat/common v0.0.0-20211011185644-8d4e0765907a/go.mod h1:mXm5FIxFzjWURadc1bBfqr/2e1zgvOCTUmv+Kstpv9U=
+github.com/ZOrfeas/go_chat/common v0.0.0-20211013181730-995b539a1300 h1:GMvu2JziHjBlvRj/DuWPLvoy/aXDeYLbij/E103lMqk=
+github.com/ZOrfeas/go_chat/common v0.0.0-20211013181730-995b539a1300/go.mod h1:mXm5FIxFzjWURadc1bBfqr/2e1zgvOCTUmv+Kstpv9U=
+github.com/ZOrfeas/go_chat/common v0.0.0-20211014194057-b41b034f3e20 h1:UJmH25hrqEAdJCseev9DiC4lBxqvmUZb0V3lSU3FNXc=
+github.com/ZOrfeas/go_chat/common v0.0.0-20211014194057-b41b034f3e20/go.mod h1:mXm5FIxFzjWURadc1bBfqr/2e1zgvOCTUmv+Kstpv9U=
+github.com/ZOrfeas/go_chat/common v0.0.0-20211014204726-6c85508fd3c7 h1:AuH2zkvnpO3lthV0pZ0p5S49qO2WBeRca4l1+vvJvHQ=
+github.com/ZOrfeas/go_chat/common v0.0.0-20211014204726-6c85508fd3c7/go.mod h1:mXm5FIxFzjWURadc1bBfqr/2e1zgvOCTUmv+Kstpv9U=
+github.com/ZOrfeas/go_chat/common v0.0.0-20211014204918-f2cd3ae8cceb h1:20f8rFi4sHSdPMC6aBsFKN2p0UzXbdFwckn01QnBkpo=
+github.com/ZOrfeas/go_chat/common v0.0.0-20211014204918-f2cd3ae8cceb/go.mod h1:mXm5FIxFzjWURadc1bBfqr/2e1zgvOCTUmv+Kstpv9U=
