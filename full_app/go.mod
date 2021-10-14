@@ -7,4 +7,4 @@ require (
 	github.com/ZOrfeas/go_chat/common v0.0.0-20211014204918-f2cd3ae8cceb
 )
 
-require github.com/ZOrfeas/go_chat/server v0.0.0-20211014220855-1e0216e06323 // indirect
+require github.com/ZOrfeas/go_chat/server v0.0.0-20211014221958-2231d4381c89 // indirect
