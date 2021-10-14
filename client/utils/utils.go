@@ -125,8 +125,6 @@ func Run(connString, id string) {
 
 	stdin := make(chan string, 1)
 	host := make(chan string, 1)
-	defer close(stdin)
-	defer close(host)
 
 	go common.ChannelStrings(stdin, os.Stdin)
 	go common.ChannelStrings(host, client.Conn)
