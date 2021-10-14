@@ -17,6 +17,7 @@ const (
 	HostCommandCount // the count of available host commands
 )
 
+// Array from HostCommand enum to string
 var hostCommandString = [HostCommandCount]string{
 	"Disconnect", "Change-Name", "Say-Name",
 }
@@ -28,6 +29,7 @@ func (hostCmd HostCommand) String() string {
 	return hostCommandString[hostCmd]
 }
 
+// Map from string to HostCommand enum
 var StringHostCommand = func() map[string]HostCommand {
 	mapRes := map[string]HostCommand{}
 	for i, name := range hostCommandString {
