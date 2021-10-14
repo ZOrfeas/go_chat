@@ -6,6 +6,7 @@ import (
 
 	client "github.com/ZOrfeas/go_chat/client/utils"
 	"github.com/ZOrfeas/go_chat/common/cli"
+	server "github.com/ZOrfeas/go_chat/server/utils"
 )
 
 func main() {
@@ -25,10 +26,7 @@ func main() {
 	}
 
 	clientCallback := client.EntryPoint
-	serverCallback := func(args []string) error {
-		fmt.Println("I am server, these are my args", args)
-		return nil
-	}
+	serverCallback := server.EntryPoint
 
 	parentCli.AddCommand("client", "chooses client functionality", clientCallback)
 	parentCli.AddCommand("server", "chooses server functionality", serverCallback)
