@@ -17,13 +17,23 @@ const (
 	HostCommandCount // the count of available host commands
 )
 
+var hostCommandString = [HostCommandCount]string{
+	"Disconnect", "Change-Name", "Say-Name",
+}
+
 func (hostCmd HostCommand) String() string {
 	if hostCmd >= HostCommandCount || hostCmd < 0 {
 		return "Non-existent command ID"
 	}
-	return [HostCommandCount]string{
-		"Disconnect", "Change-Name", "Say-Name",
-	}[hostCmd]
+	return hostCommandString[hostCmd]
+}
+
+var StringHostCommand = func() map[string]HostCommand {
+	mapRes := map[string]HostCommand{}
+	for i, name := range hostCommandString {
+		mapRes[name] = HostCommand(i)
+	}
+	return mapRes
 }
 
 const HostCommandIdentifier = "--COMMAND:"
