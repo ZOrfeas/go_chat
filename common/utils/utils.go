@@ -29,6 +29,7 @@ func (hostCmd HostCommand) String() string {
 const HostCommandIdentifier = "--COMMAND:"
 
 func ChannelStrings(out chan<- string, in io.Reader) {
+	defer close(out)
 	reader := bufio.NewReader(in)
 	for {
 		message, err := reader.ReadString('\n')
