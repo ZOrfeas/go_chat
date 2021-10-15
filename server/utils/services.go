@@ -51,6 +51,7 @@ func nameProvider(thisClient *clientWrapperTy, rest string) error {
 	newName := strings.Fields(rest)[0]
 	delete(server.Clients, thisClient.Client.Id)
 	server.Clients[newName] = thisClient
+	thisClient.Client.Id = newName
 	return thisClient.sendCommand(common.ChangeName, strings.Fields(rest)[0])
 }
 func listProvider(thisClient *clientWrapperTy, rest string) error {
