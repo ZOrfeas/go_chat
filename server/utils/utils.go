@@ -10,6 +10,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"time"
 	"unicode"
 
 	client "github.com/ZOrfeas/go_chat/client/utils"
@@ -76,14 +77,16 @@ func setupClient(c net.Conn) (*clientWrapperTy, error) {
 	}
 	candidateId := words[1]
 
-	for cliWrapper, idExists := server.Clients[candidateId]; idExists; {
-		if cliWrapper == nil {
-			break
-		}
-		candidateId += "_"
-	}
 	newClient := &client.CliTy{Id: candidateId, Conn: c}
 	newClientWrapper := &clientWrapperTy{Client: newClient}
+	if _, exists := server.Clients[candidateId]; exists {
+		newClientWrapper.checkAndSend("________")
+		<-time.After(1 * time.Second) // waits for a second
+		newClientWrapper.checkAndSend("!!Name already in use!!")
+		<-time.After(1 * time.Second) // waits for a second
+		newClientWrapper.sendCommand(common.Disconnect, "")
+		return nil, fmt.Errorf("connection attempted with duplicate name")
+	}
 	server.Clients[candidateId] = newClientWrapper
 	newClient.SendString(candidateId)
 	return newClientWrapper, nil
